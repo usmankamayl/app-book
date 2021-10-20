@@ -1,0 +1,19 @@
+services:
+  redis:
+    image: redis:6.2.5-alpine
+    volumes:
+      - data:/data
+  counter:
+    build: .
+    ports:
+      - 80:3002  
+    environment:
+      - PORT=3002
+      - REDIS_URL=redis:6379
+    links:
+      - redis
+    volumes:
+      - ./counter:/app/counter
+volumes:
+  data: {}
+
